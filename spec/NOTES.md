@@ -12,7 +12,7 @@ BEER REVIEW
     - list will contain links to each individual beer('/beers/:id') and the following attributes:
       - displays the login link if not logged in else
         - displays log out
-        - if logged in will display a 'add beer button'('/add') and 'review beer button'('/review'), beers are automatically added when a review is written
+        - if logged in will display a 'add beer button'('/add/:id') and 'review beer button'('/review/:id'), beers are automatically added when a review is written
         - if logged in and beer has already been added but review hasn't been written, will replace 'add beer' button with 'already in your portfolio' but keeps 'review beer'
         - if logged in and both beer has been added and review has been written, will replace 'add beer' with 'already in your portfolio' and replaces 'review beer' with 'edit review'
       - ABV, - TOTAL REVIEWS(links to all the reviews ('/beers/:id/reviews')), -BREWERY(links to brewery('/breweries/:id')), - OVERALL RATINGS, - NAME
@@ -27,12 +27,16 @@ BEER REVIEW
       - displays home link
         - OVERALL RATING - list of its beers('/breweries/:id/beers') - list of all of its reviews('/breweries/:id/reviews')
   - list of all users ('/users')
-  - displays login link
-  - displays home link
+    - displays login link if logged in else displays log out
+    - displays home link
     - list will contain an individual link to each user ('/users/:id')
       - each user will display links to his or hers beer portfolio('/users/:id/beers'), brewery portfolio('/users/:id/breweries') or review list('/users/:id/reviews')
       - displays login link if not logged in else displays log out
       - displays home link
   - user profile
     - only displays if logged in, if not logged in redirects to log in page
+    - displays home link
+    - user will display links to his or hers beer portfolio('/users/:id/beers'), brewery portfolio('/users/:id/breweries') or review list('/users/:id/reviews')
+      - user's reviews will have an edit and delete function ('/reviews/:id/edit'), ('/reviews/:id/delete'). these functions will only appear on a post if logged in and belongs to user
+    - will display buttons to add new beers ('/add') or write a review ('/review')
 --------------------------------------------------------------------------
