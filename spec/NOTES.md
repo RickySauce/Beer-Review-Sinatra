@@ -39,7 +39,7 @@ BEER REVIEW
     - displays home link
     - user will display links to his or hers beer portfolio('/users/:id/beers'), brewery portfolio('/users/:id/breweries') or review list('/users/:id/reviews')
       - user's reviews will have an edit and delete function ('/reviews/:id/edit'), ('/reviews/:id/delete'). these functions will only appear on a post if logged in and belongs to user
-    - will display buttons to add new beers ('/add') or write a review ('/review')
+    - will display buttons to add new beers ('/add') or write a review ('/search')
   - signup ('/signup')
 --------------------------------------------------------------------------
 ------------------------------- TABLES AND RELATIONS -----------------------------
@@ -86,3 +86,29 @@ Logged_in? - will validate if the visitor is logged in based off of a session[us
   - @total_reviews - adds all of its beers @total_reviews and sets the variable equal to its average
   - @overall_rating - adds all of its beers @overall_ratings and sets the variable equal to its average
 ---------------------------------------------------------------------------------
+----------------------------------- SINATRA FORMS --------------------------------
+- '/login'
+  - asks for username
+  - asks for password
+  - submit button
+- '/signup'
+  - asks for username
+  - asks for email
+  - asks for password
+  - submit
+- '/add'
+  - lists existing beers
+- '/search'
+  - displays beer list link
+  - provides text box to search beer if beer doesn't exist returns to search route
+    redirects to review
+- '/review'
+  - beer - hidden value provided either through beer list or search bar
+  - content text box
+  - feel
+  - taste
+  - smell
+  - look
+- '/edit'
+  - see review
+----------------------------------------------------------------------------------
