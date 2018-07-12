@@ -3,6 +3,7 @@ BEER REVIEW
 ----------------       LAYOUT       -------------------------
 - homepage - '/' welcomes user displays links for:
   - Log in: ('/login')
+    - log in searches for account name, matches account name to password.authenticate
     - if log in fails, searches for account name, if account name exists redirects them to the log in page, fills in username portion and informs them of incorrect password
     - if log in fails and account name doesn't exist redirects them to sign up
     - if logged in, displays account name
@@ -39,4 +40,49 @@ BEER REVIEW
     - user will display links to his or hers beer portfolio('/users/:id/beers'), brewery portfolio('/users/:id/breweries') or review list('/users/:id/reviews')
       - user's reviews will have an edit and delete function ('/reviews/:id/edit'), ('/reviews/:id/delete'). these functions will only appear on a post if logged in and belongs to user
     - will display buttons to add new beers ('/add') or write a review ('/review')
+  - signup ('/signup')
 --------------------------------------------------------------------------
+------------------------------- TABLES AND RELATIONS -----------------------------
+- Users
+  - username
+  - email
+  - password_digest
+    - a user has many beers
+    - a user has many reviews
+    - a user has many breweries through beers
+- Beers
+  - name
+  - abv
+  - brewery_id
+    - belongs to one brewery
+    - belongs to many users
+    - has many reviews
+- Breweries
+  - name
+    - has many beers
+- Reviews
+  - content
+  - taste
+  - feel
+  - smell
+  - look
+  - beer_id
+  - user_id
+   - belongs to one user
+   - belongs to one beer
+----------------------------------------------------------------------------------
+--------------------- CONTROLLER HELPERS ----------------------------------------
+Logged_in? - will validate if the visitor is logged in based off of a session[user_id] which will be set equal to the user id on log in
+---------------------------------------------------------------------------------
+----------------------------- OBJECT FUNCTIONALITY -------------------------------
+- USER
+  - has_secured_password
+- REVIEW
+  - @overall_rating - adds taste, feel, smell and look averages divides by 4 and sets the instance variable equal to the result
+- BEER
+  - @total_reviews - counts all reviews belonging to a particular beer sets the instance variable equal to that number
+  - @overall_rating - adds all review @overall_rating ratings belonging to a particular beer, sets the instance variable equal to the total number divided by the total review count  
+- BREWERY
+  - @total_reviews - adds all of its beers @total_reviews and sets the variable equal to its average
+  - @overall_rating - adds all of its beers @overall_ratings and sets the variable equal to its average
+---------------------------------------------------------------------------------
