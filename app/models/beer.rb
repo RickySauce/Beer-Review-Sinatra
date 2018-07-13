@@ -4,6 +4,7 @@ class Beer < ActiveRecord::Base
   belongs_to :brewery
 
   def rating
-    @rating = self.reviews.each {|}
+    @rating = self.reviews.each {|review| @rating += review.rating}
+    @rating /= self.reviews.count
   end
 end
