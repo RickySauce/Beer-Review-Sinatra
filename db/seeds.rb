@@ -1,3 +1,5 @@
+Scraper.parse
+
 users_list = {
   "big-guy3000" => {
     :email => "dudeGuy@DudeGuy.com"
@@ -12,7 +14,7 @@ users_list = {
 user_list.each do |name, user_hash|
   p = User.new
   p.name = name
-  landmark_hash.each do |attribute, value|
+  user_hash.each do |attribute, value|
       p[attribute] = value
   end
   p.save

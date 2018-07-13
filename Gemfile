@@ -11,6 +11,7 @@ gem 'shotgun'
 gem 'pry'
 gem 'bcrypt'
 gem "tux"
+gem 'open-uri-s3'
 
 group :test do
   gem 'rspec'
