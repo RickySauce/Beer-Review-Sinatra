@@ -17,4 +17,4 @@
   <input type="submit" value="Sign Up">
 </form>
 
-<%session[:message].clear %>
+<%session[:message].clear if !session[:message].nil? && !session[:message].empty? %>

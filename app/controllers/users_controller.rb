@@ -32,12 +32,23 @@ class UsersController < ApplicationController
     end
   end
 
-  post 'login' do
-    binding.pry
+  post '/login' do
+    @user = User.find_by(username: params["username"])
+    if @user && @user.password.authenticate == params["password"]
+      session[:user_id] = @user.id
+      redirect "/users/#{@user.id}"
+    else
+      session[:message] = "Sorry, incorrect Username or Password"
+      redirect '/login'
+    end
   end
 
   get '/users' do
     erb :'/users/users'
+  end
+
+  get '/users/:id' do
+    erb :'/users/show'
   end
 
 end
