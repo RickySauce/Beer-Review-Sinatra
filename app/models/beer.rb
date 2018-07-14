@@ -6,5 +6,6 @@ class Beer < ActiveRecord::Base
   def rating
     @rating = self.reviews.each {|review| @rating += review.rating}
     @rating /= self.reviews.count
+    @rating.round(2)
   end
 end

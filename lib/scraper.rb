@@ -33,11 +33,20 @@ class Scraper
         text = review.children[1].children.reject {|item| item if item.name == "span"}
         text.collect! {|item| item.text}
         text.delete_at(0) && text.delete_at(-1)
-        binding.pry
+        text = text.join.gsub("\n","")
+        ratings = review.css("span.muted").text.split(" | ")
         review = {
-
+          :content => text,
+          :look => ratings[0].split(": ").last.to_f,
+          :smell => ratings[1].split(": ").last.to_f,
+          :taste => ratings[2].split(": ").last.to_f,
+          :feel => ratings[3].split(": ").last.to_f
         }
+        review = Review.find_or_create_by(review)
+        review.beer = beer
+        beer.reviews << review
       end
+      binding.pry
     end
   end
 
