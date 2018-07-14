@@ -4,6 +4,7 @@ class CreateBeers < ActiveRecord::Migration
       b.string :name
       b.string :url
       b.float :abv
+      b.float :rating
       b.integer :brewery_id
     end
   end

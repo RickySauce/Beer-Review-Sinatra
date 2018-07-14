@@ -8,6 +8,7 @@ class CreateReviews < ActiveRecord::Migration
       r.float :look
       r.float :smell
       r.float :feel
+      r.float :rating
     end
   end
 end

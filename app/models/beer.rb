@@ -4,7 +4,10 @@ class Beer < ActiveRecord::Base
   belongs_to :brewery
 
   def rating
-    @rating = self.reviews.each {|review| @rating += review.rating}
+    self.reviews.each do |review|
+      @rating = 0 if @rating.nil?
+      @rating += review.rating
+    end
     @rating /= self.reviews.count
     @rating.round(2)
   end

@@ -7,6 +7,27 @@ class Scraper
     self.new.create_beers
   end
 
+  def create_users
+    user_list = {
+      "big-guy3000" => {
+        :email => "dudeGuy@DudeGuy.com",
+        :password => "suh-dude"
+      },
+      "Guy-Bro-uhsuh" => {
+        :email => "uhsuh@suh.com",
+        :password => "suhhhhhhhh"
+      },
+      "Yung-Saucington" => {
+        :email => "sauceboss@sauce.com",
+        :password => "keepitahunnid'"
+      }
+    }
+
+    user_list.each do |username, user_hash|
+      user = User.create(username: username, email: user_hash[:email], password: user_hash[:password])
+    end
+  end
+
   def create_beers
     doc = Nokogiri::HTML(open("https://www.beeradvocate.com/lists/top/"))
     doc.css("table tr").drop(2).each do |beer_info|
@@ -24,10 +45,19 @@ class Scraper
         brewery.beers << beer
       end
       self.create_reviews
+      Beer.all.each do |beer|
+        beer.rating = beer.rating
+        beer.save
+      end
+      Brewery.all.each do |brewery|
+        brewery.rating = brewery.rating
+        brewery.save
+      end
+      self.create_users
   end
 
   def create_reviews
-    Beer.all.each do |beer|
+    Beer.all[0..5].each do |beer|
       doc = Nokogiri::HTML(open("https://www.beeradvocate.com#{beer.url}"))
       doc.css("div#rating_fullview_container").each do |review|
         text = review.children[1].children.reject {|item| item if item.name == "span"}
@@ -43,13 +73,17 @@ class Scraper
           :feel => ratings[3].split(": ").last.to_f
         }
         review = Review.find_or_create_by(review)
+        review.rating = review.rating
         review.beer = beer
         beer.reviews << review
+        review.save
+        beer.save
       end
-      binding.pry
     end
   end
 
 end
 
 #ratings = review.delete(css("span.muted"))
+
+user = User.create(username: "Sam", password: "fred")
