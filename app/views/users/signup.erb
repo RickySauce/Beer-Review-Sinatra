@@ -2,7 +2,7 @@
 
 <h3>Please fill out the following form!</h3>
 
-<b><%= session[:message] if !session[:message].empty?%></b>
+<b><%= session[:message] if !session[:message].empty? && !session[:message].nil?%></b>
 <br><br>
 <form action="/signup" method="post">
   <label>User Name:</label>
