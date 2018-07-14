@@ -2,4 +2,4 @@
 
 require './config/environment'
 
-Scraper.parse
+#Scraper.parse

@@ -24,8 +24,20 @@ class Scraper
     }
 
     user_list.each do |username, user_hash|
-      user = User.create(username: username, email: user_hash[:email], password: user_hash[:password])
+      user = User.find_or_create_by(username: username)
+      user.password = user_hash[:password]
+      user.email = user_hash[:email]
+      user.save
     end
+    user_1 = User.all[0]
+    user_2 = User.all[1]
+    user_3 = User.all[2]
+    user_1.review_ids = [1, 2, 3]
+    user_1.beers = user_1.reviews.collect {|review| review.beer}
+    user_2.review_ids = [4, 5, 6]
+    user_2.beers = user_2.reviews.collect {|review| review.beer}
+    user_3.review_ids = [7, 8, 9]
+    user_3.beers = user_3.reviews.collect {|review| review.beer}
   end
 
   def create_beers
