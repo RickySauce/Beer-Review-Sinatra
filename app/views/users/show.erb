@@ -1,13 +1,25 @@
 <h1><%=@user.username%></h1>
 <h3>User Reviews:</h3>
+<%="No Content" if @user.reviews.count == 0%>
 <%@user.reviews.each_with_index do |review, index|%>
 <li><a href="/reviews/<%=review.id%>">Review <%=index + 1%></a></li>
 <%end%>
 <h3>User Breweries:</h3>
+<%="No Content" if @user.breweries.count == 0%>
 <%@user.breweries.each do |brewery|%>
 <li><a href="/breweries/<%=brewery.id%>"> <%=brewery.name%></a></li>
 <%end%>
 <h3>User Beers:</h3>
+<%="No Content" if @user.beers.count == 0%>
 <%@user.beers.each do |beer|%>
 <li><a href="/beers/<%=beer.id%>"><%=beer.name%></a></li>
+<%end%>
+<br><br>
+<%if @user.id == session[:user_id]%>
+<form action="/add" method="get">
+  <input type="submit" value="Add Beers">
+</form><br>
+<form action="/review" method="get">
+  <input type="submit" value="Write Review">
+</form>
 <%end%>

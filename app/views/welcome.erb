@@ -7,8 +7,8 @@
 <a href="/reviews">Reviews!</a><br>
 <a href="/beers">Beers!</a><br>
 <a href="/breweries">Breweries!</a><br>
-<a href="/users">Users!</a>
+<a href="/users">Users!</a><br>
 <%if logged_in?%>
-<a href="/user/<%=current_user.id%>">User Homepage!</a><br>
+<a href="/users/<%=current_user.id%>">User Homepage!</a><br>
 <a href="/logout">Log Out!</a><br>
 <%end%>
