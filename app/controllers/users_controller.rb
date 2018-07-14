@@ -24,4 +24,8 @@ class UsersController < ApplicationController
     end
   end
 
+  get '/users' do
+    erb :'/users/users'
+  end
+
 end
