@@ -57,4 +57,12 @@ class UsersController < ApplicationController
     redirect '/'
   end
 
+  get '/add' do
+    erb :'/users/add'
+  end
+
+  get '/review' do
+
+  end
+
 end
