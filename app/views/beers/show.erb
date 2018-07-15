@@ -1,6 +1,6 @@
 <h1><%=@beer.name%></h1>
 <%if logged_in?%>
-<%if !current_user.beers.any? {|beer| beer.id == @beer.id} %>
+<%if !current_user.beers.any? {|beer| beer == @beer} %>
 <form action="/beers/<%=@beer.id%>/add" method="post">
 <input type="submit" value="Add Beer">
 </form>
@@ -9,6 +9,12 @@
   <form action="/reviews/<%=@beer.id%>/new" method="get">
     <input type="submit" value="Write Review">
   </form>
+<%end%>
+<%if current_user.beers.any? {|beer| beer == @beer}%>
+<form action="/beers/<%=@beer.id%>/remove" method="post">
+  <input id="hidden "type="hidden" name="_method" value="DELETE">
+  <input type="submit" name="" value="Remove Beer"><br>
+</form>
 <%end%>
 <%end%>
 <b>ABV:</b> <%=@beer.abv%>%<br>

@@ -24,4 +24,13 @@ class BeersController < ApplicationController
     end
   end
 
+  delete '/beers/:id/remove' do
+    @beer = Beer.find(params["id"])
+    @review = current_user.reviews.find {|review| review.beer_id == @beer.id}
+    current_user.beers.delete(@beer)
+    current_user.reviews.delete(@review) if @review
+    current_user.save
+    redirect "/users/#{current_user.id}"
+  end
+
 end

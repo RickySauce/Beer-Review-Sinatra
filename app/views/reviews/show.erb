@@ -1,4 +1,5 @@
-<h1><%="#{@review.user.username}'s" if !@review.user.nil?%> Review for <%=@review.beer.name%></h1>
+<h1><%="#{@review.user.username}'s" if !@review.user.nil?%> Review for:</h1>
+<h2><a href="/beers/<%=@review.beer.id%>"> <%=@review.beer.name%></a></h2>
 <%if @review.user == current_user%>
 <form action="/reviews/<%=@review.id%>/edit" method="get">
   <input type="submit" value="Edit Review">

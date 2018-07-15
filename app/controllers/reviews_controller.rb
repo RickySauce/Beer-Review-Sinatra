@@ -31,7 +31,7 @@ class ReviewsController < ApplicationController
       @beer.reviews << @review
       @beer.save
       current_user.reviews << @review
-      current_user.beers << @beer
+      current_user.beers << @beer if !current_user.beers.any? {|beer| beer == @beer}
       current_user.save
       redirect "/reviews/#{@review.id}"
     end
