@@ -1,0 +1,10 @@
+<h1><%=@brewery.name%></h1>
+<b>Overall Rating:</b> <%=@brewery.rating%><br>
+<b>Total Reviews:</b> <%=@brewery.reviews.count%><br>
+<b>Total Beers:</b> <%=@brewery.beers.count%><br>
+<br><br>
+<h3><%=@brewery.name%>'s Beers:</h3>
+<br><br>
+<%@brewery.beers.each do |beer|%>
+<li><a href="/beers/<%=beer.id%>"><%=beer.name%></a></li>
+<%end%>
