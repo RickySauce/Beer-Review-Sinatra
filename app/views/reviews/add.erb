@@ -1,3 +1,12 @@
 <h1>Write a review!</h1>
 
-<h1>Choose a Beer from the beer list to get started!</h1>
+<h3>Choose a Beer from the beer list to get started:</h3>
+<a href="/beers">Beer List</a><br>
+
+<h3>Or search by name:</h3>
+<b><%=session[:message] if !session[:message].nil? && !session[:message].empty?%></b>
+<form action="/review" method="post">
+<input type="text" name="name">
+<input type="submit" value="Search">
+</form>
+<%session[:message].clear if !session[:message].nil? && !session[:message].empty?%>

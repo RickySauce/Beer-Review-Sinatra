@@ -1,0 +1,20 @@
+<h1>Write your review!</h1>
+
+<form action="/reviews/new" method="post">
+  <label>Beer Name:</label>
+  <input type="text" name="beer[name]" value="<%=session[:beer].name%>" disabled><br>
+  <%=session[:message] if !session[:message].nil? && !session[:message].empty?%>
+  <label>Look:</label>
+  <input type="number" name="review[look]" step=".01"><br>
+  <label>Smell:</label>
+  <input type="number" name="review[smell]" step=".01"><br>
+  <label>Taste:</label>
+  <input type="number" name="review[taste]" step=".01"><br>
+  <label>Feel:</label>
+  <input type="number" name="review[feel]" step=".01">
+  <br><br>
+  <b><label>Write Your Review!(optional):</label></b><br>
+  <textarea name="review[content]" rows="15" cols="60"></textarea><br>
+  <input type="submit" value="Submit Review">
+</form>
+<%session[:message].clear if !session[:message].nil? && !session[:message].empty?%>

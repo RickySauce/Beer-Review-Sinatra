@@ -93,4 +93,25 @@ class UsersController < ApplicationController
     end
   end
 
+  post '/review' do
+    if params["name"].empty?
+      session[:message] = "Please enter a name"
+      redirect '/add'
+    else
+      @beer = Beer.find_by(name: params["name"])
+      if @beer
+        if current_user.reviews.any? {|review| review.beer_id == @beer.id}
+          session[:message] = "You have already reviewed this beer!"
+          redirect "/reviews/:id"
+        else
+          session[:beer] = @beer
+          redirect '/reviews/new'
+        end
+      else
+        session[:message] = "Sorry, that beer does not exist, please enter a new name"
+        redirect '/add'
+      end
+    end
+  end
+
 end
