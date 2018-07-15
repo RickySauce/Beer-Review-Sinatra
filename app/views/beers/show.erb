@@ -1,9 +1,22 @@
 <h1><%=@beer.name%></h1>
-<b>ABV:</b><p><%=@beer.abv%>%</p>
-<b>Brewery:</b><p><%=@beer.brewery%></p>
-<b>Rating:</b><p><%=@beer.rating%></p>
-<b>Total Reviews:</b><p><%=@beer.reviews.count%></p>
+<%if logged_in?%>
+<%if !current_user.beers.any? {|beer| beer.id == @beer.id} %>
+<form action="/beers/<%=@beer.id%>/add" method="post">
+<input type="submit" value="Add Beer">
+</form>
+<%end%>
+<%if !current_user.reviews.any? {|review| review.beer_id == @beer.id} %>
+  <%session[:beer] = @beer%>
+  <form action="/reviews/new" method="get">
+    <input type="submit" value="Write Review">
+  </form>
+<%end%>
+<%end%>
+<b>ABV:</b> <%=@beer.abv%>%<br>
+<b>Brewery:</b> <a href="/breweries/<%=@beer.brewery_id%>"> <%=@beer.brewery.name%></a><br>
+<b>Rating:</b> <%=@beer.rating%><br>
+<b>Total Reviews:</b> <%=@beer.reviews.count%><br>
 <h3><%=@beer.name%>'s Reviews:</h3>
 <%@beer.reviews.each_with_index do |review, index|%>
-<li><a href="/reviews/<%=review.id%>">Review <%=index%></a></li>
+<li><a href="/reviews/<%=review.id%>">Review <%=index + 1%></a></li>
 <%end%>

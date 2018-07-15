@@ -9,4 +9,8 @@ class BeersController < ApplicationController
     erb :'/beers/show'
   end
 
+  post '/beers/:id/add' do
+
+  end
+
 end

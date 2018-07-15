@@ -1,15 +1,15 @@
 class ReviewsController < ApplicationController
 
   get '/reviews/new' do
-    if Review.all.any? {|review| review.beer_id == session[:beer].id}
-      session[:message] = "You have already reviewed this beer!"
-      redirect '/review'
-    else
-      if logged_in? && !session[:beer].nil? && !session[:beer].empty?
-        erb :'/reviews/new'
+    if logged_in? && session[:beer].class == Beer
+      if current_user.reviews.any? {|review| review.beer_id == session[:beer].id}
+        session[:message] = "You have already reviewed this beer!"
+        redirect '/review'
       else
-        redirect '/login'
+        erb :'/reviews/new'
       end
+    else
+        redirect '/login'
     end
   end
 
