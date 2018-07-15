@@ -1,9 +1,9 @@
-<h1><%=@review.user.username%>'s Review for <%=@review.beer.name%></h1>
+<h1><%="#{@review.user.username}'s" if !@review.user.nil?%> Review for <%=@review.beer.name%></h1>
 <%if @review.user == current_user%>
-<form action="review/<%=@review.id%>/edit" method="get">
+<form action="/reviews/<%=@review.id%>/edit" method="get">
   <input type="submit" value="Edit Review">
 </form>
-<form action="review/<%=@review.id%>/delete" method="post">
+<form action="/reviews/<%=@review.id%>/delete" method="post">
   <input id="hidden "type="hidden" name="_method" value="DELETE">
   <input type="submit" name="" value="Delete Review"><br>
 </form>

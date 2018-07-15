@@ -1,0 +1,21 @@
+<h1>Edit Your Review!</h1>
+
+<form action="/reviews/<%=@review.id%>/edit" method="post">
+  <input id="hidden" type="hidden" name="_method" value="patch">
+  <label>Beer Name:</label>
+  <input type="text" value="<%=@review.beer.name%>" readonly><br>
+  <b><%=session[:message] if !session[:message].nil? && !session[:message].empty?%></b><br>
+  <label>Look:</label>
+  <input type="number" name="review[look]" step=".01" min="0" max="5" value="<%=@review.look%>"><br>
+  <label>Smell:</label>
+  <input type="number" name="review[smell]" step=".01" min="0" max="5" value="<%=@review.smell%>"><br>
+  <label>Taste:</label>
+  <input type="number" name="review[taste]" step=".01" min="0" max="5" value="<%=@review.taste%>"><br>
+  <label>Feel:</label>
+  <input type="number" name="review[feel]" step=".01" min="0" max="5" value="<%=@review.feel%>">
+  <br><br>
+  <b><label>Write Your Review!(optional):</label></b><br>
+  <textarea name="review[content]" rows="15" cols="60"> <%=@review.content%></textarea><br>
+  <input type="submit" value="Submit">
+</form>
+<%session[:message].clear if !session[:message].nil? && !session[:message].empty?%>

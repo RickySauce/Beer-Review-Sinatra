@@ -2,7 +2,7 @@
 <h3>User Reviews:</h3>
 <%="No Content" if @user.reviews.count == 0%>
 <%@user.reviews.each_with_index do |review, index|%>
-<li><a href="/reviews/<%=review.id%>">Review <%=index + 1%></a></li>
+<li><a href="/reviews/<%=review.id%>">Review - <%=review.beer.name%></a></li>
 <%end%>
 <h3>User Breweries:</h3>
 <%="No Content" if @user.breweries.count == 0%>

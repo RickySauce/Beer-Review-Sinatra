@@ -42,4 +42,45 @@ class ReviewsController < ApplicationController
     erb :'/reviews/show'
   end
 
+  delete '/reviews/:id/delete'do
+    if logged_in?
+      @review = Review.find(params["id"])
+      if @review && @review.user == current_user
+        @review.delete
+        redirect "/users/#{current_user.id}"
+      end
+    else
+      redirect '/login'
+    end
+  end
+
+  get '/reviews/:id/edit' do
+    @review = Review.find(params["id"])
+    if logged_in?
+      if @review && current_user.id == @review.user.id
+        erb :'/reviews/edit'
+      else
+        redirect "/users/#{current_user.id}"
+      end
+    else
+      redirect '/login'
+    end
+  end
+
+  patch '/reviews/:id/edit' do
+    @review = Review.find(params["id"])
+    if params["review"]["look"].empty? || params["review"]["smell"].empty? || params["review"]["taste"].empty? || params["review"]["feel"].empty?
+      session[:message] = "Must enter a number for each of the first 4 fields!"
+      redirect "/reviews/#{@review.id}/edit"
+    else
+      @review.look = params["review"]["look"]
+      @review.smell = params["review"]["smell"]
+      @review.taste = params["review"]["taste"]
+      @review.feel = params["review"]["feel"]
+      @review.content = params["review"]["content"]
+      @review.save
+      redirect "/reviews/#{@review.id}"
+    end
+  end
+
 end
