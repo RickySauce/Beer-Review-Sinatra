@@ -1,0 +1,6 @@
+<h1>Eligable beers to review:</h1>
+<%Beer.all.each do |beer|%>
+<%if !current_user.reviews.any? {|review| review.beer_id == beer.id}%>
+<li><a href="/beers/<%=beer.id%>"><%=beer.name%></a></li>
+<%end%>
+<%end%>

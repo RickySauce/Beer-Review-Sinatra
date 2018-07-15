@@ -4,6 +4,14 @@ class ReviewsController < ApplicationController
     erb :'/reviews/reviews'
   end
 
+  get '/reviews/user' do
+    if logged_in?
+      erb :'/reviews/user'
+    else
+      redirect '/login'
+    end
+  end
+
   get '/reviews/:beer_id/new' do
     @beer = Beer.find(params["beer_id"])
     if logged_in? && @beer

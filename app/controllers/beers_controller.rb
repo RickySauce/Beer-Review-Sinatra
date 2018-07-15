@@ -4,6 +4,14 @@ class BeersController < ApplicationController
     erb :'/beers/beers'
   end
 
+  get '/beers/user' do
+    if logged_in?
+      erb :'/beers/user'
+    else
+      redirect '/login'
+    end
+  end
+
   get '/beers/:id' do
     @beer = Beer.find(params["id"])
     erb :'/beers/show'
