@@ -48,6 +48,7 @@ class UsersController < ApplicationController
   end
 
   get '/users/:id' do
+    session[:message].clear
     @user = User.find(params["id"])
     erb :'/users/show'
   end

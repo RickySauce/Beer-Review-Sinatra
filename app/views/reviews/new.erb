@@ -2,16 +2,16 @@
 
 <form action="/reviews/new" method="post">
   <label>Beer Name:</label>
-  <input type="text" name="beer[name]" value="<%=session[:beer].name%>" disabled><br>
-  <%=session[:message] if !session[:message].nil? && !session[:message].empty?%>
+  <input type="text" name="beer[name]" value="<%=@beer.name%>" readonly><br>
+  <b><%=session[:message] if !session[:message].nil? && !session[:message].empty?%></b><br>
   <label>Look:</label>
-  <input type="number" name="review[look]" step=".01"><br>
+  <input type="number" name="review[look]" step=".01" min="0" max="5"><br>
   <label>Smell:</label>
-  <input type="number" name="review[smell]" step=".01"><br>
+  <input type="number" name="review[smell]" step=".01" min="0" max="5"><br>
   <label>Taste:</label>
-  <input type="number" name="review[taste]" step=".01"><br>
+  <input type="number" name="review[taste]" step=".01" min="0" max="5"><br>
   <label>Feel:</label>
-  <input type="number" name="review[feel]" step=".01">
+  <input type="number" name="review[feel]" step=".01" min="0" max="5">
   <br><br>
   <b><label>Write Your Review!(optional):</label></b><br>
   <textarea name="review[content]" rows="15" cols="60"></textarea><br>

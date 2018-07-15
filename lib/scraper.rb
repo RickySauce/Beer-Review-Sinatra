@@ -57,10 +57,6 @@ class Scraper
         brewery.beers << beer
       end
       self.create_reviews
-      Beer.all.each do |beer|
-        beer.rating = beer.rating
-        beer.save
-      end
       Brewery.all.each do |brewery|
         brewery.rating = brewery.rating
         brewery.save
@@ -69,7 +65,7 @@ class Scraper
   end
 
   def create_reviews
-    Beer.all[0..5].each do |beer|
+    Beer.all.each do |beer|
       doc = Nokogiri::HTML(open("https://www.beeradvocate.com#{beer.url}"))
       doc.css("div#rating_fullview_container").each do |review|
         text = review.children[1].children.reject {|item| item if item.name == "span"}

@@ -4,9 +4,10 @@ class ReviewsController < ApplicationController
     erb :'/reviews/reviews'
   end
 
-  get '/reviews/new' do
-    if logged_in? && session[:beer].class == Beer
-      if current_user.reviews.any? {|review| review.beer_id == session[:beer].id}
+  get '/reviews/:beer_id/new' do
+    @beer = Beer.find(params["beer_id"])
+    if logged_in? && @beer
+      if current_user.reviews.any? {|review| review.beer_id == @beer.id}
         session[:message] = "You have already reviewed this beer!"
         redirect '/review'
       else
@@ -18,26 +19,20 @@ class ReviewsController < ApplicationController
   end
 
   post '/reviews/new' do
-    binding.pry
-    @beer = session[:beer]
+    @beer = Beer.find_by(name: params["beer"]["name"])
     if params["review"]["look"].empty? || params["review"]["smell"].empty? || params["review"]["taste"].empty? || params["review"]["feel"].empty?
       session[:message] = "Must enter a number for each of the first 4 fields!"
-      redirect '/reviews/new'
+      redirect "/reviews/#{@beer.id}/new"
     else
       @review = Review.create(params["review"])
       @review.beer = @beer
       @review.user = current_user
-      @review.rating
       @review.save
       @beer.reviews << @review
-      @beer.rating
       @beer.save
-      @brewery = @beer.brewery
-      @brewery.rating
-      @brewery.save
       current_user.reviews << @review
+      current_user.beers << @beer
       current_user.save
-      session[:beer] = ""
       redirect "/reviews/#{@review.id}"
     end
   end

@@ -1,6 +1,5 @@
 <h1>All Reviews:</h1>
 <%Review.all.each_with_index do |review, index|%>
-<%binding.pry%>
 <%review.beer = Beer.find(review.beer_id)%>
 <li><a href="/reviews/<%=review.id%>">Review <%=index + 1%> <%=review.beer.name%></a></li>
 <%end%>

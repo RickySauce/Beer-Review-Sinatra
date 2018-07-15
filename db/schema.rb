@@ -11,6 +11,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20180714123300) do
+
+  create_table "beers", force: :cascade do |t|
+    t.string  "name"
+    t.string  "url"
+    t.float   "abv"
+    t.float   "rating"
+    t.integer "brewery_id"
+  end
+
+  create_table "breweries", force: :cascade do |t|
+    t.string "name"
+    t.float  "rating"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.string  "content"
+    t.integer "beer_id"
+    t.integer "user_id"
+    t.float   "taste"
+    t.float   "look"
+    t.float   "smell"
+    t.float   "feel"
+    t.float   "rating"
+  end
+
+  create_table "user_beers", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "beer_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "email"
+    t.string "password_digest"
+  end
 
 end

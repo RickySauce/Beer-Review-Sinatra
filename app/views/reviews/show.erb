@@ -1,7 +1,11 @@
 <h1><%=@review.user.username%>'s Review for <%=@review.beer.name%></h1>
 <%if @review.user == current_user%>
 <form action="review/<%=@review.id%>/edit" method="get">
-  <input type="submit" value="edit"><br>
+  <input type="submit" value="Edit Review">
+</form>
+<form action="review/<%=@review.id%>/delete" method="post">
+  <input id="hidden "type="hidden" name="_method" value="DELETE">
+  <input type="submit" name="" value="Delete Review"><br>
 </form>
 <%end%>
 </form>
@@ -10,5 +14,5 @@
 <b>Taste:</b> <%=@review.smell%>
 <b>Feel:</b> <%=@review.feel%>
 <b>Overall Rating:</b> <%=@review.rating%>
-
+<br><br>
 <p><%=@review.content%></p>

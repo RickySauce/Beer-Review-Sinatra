@@ -6,8 +6,7 @@
 </form>
 <%end%>
 <%if !current_user.reviews.any? {|review| review.beer_id == @beer.id} %>
-  <%session[:beer] = @beer%>
-  <form action="/reviews/new" method="get">
+  <form action="/reviews/<%=@beer.id%>/new" method="get">
     <input type="submit" value="Write Review">
   </form>
 <%end%>
