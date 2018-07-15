@@ -1,8 +1,9 @@
 <h1>Sign Up!</h1><br>
 
 <h3>Please fill out the following form!</h3>
-
-<b><%= session[:message] if !session[:message].empty? && !session[:message].nil?%></b>
+<%if !session[:message].nil?%>
+<b><%= session[:message] if !session[:message].empty?%></b>
+<%end%>
 <br><br>
 <form action="/signup" method="post">
   <label>User Name:</label>
@@ -17,4 +18,6 @@
   <input type="submit" value="Sign Up">
 </form>
 
-<%session[:message].clear if !session[:message].nil? && !session[:message].empty? %>
+<%if !session[:message].nil?%>
+<%session[:message].clear if !session[:message].empty?%>
+<%end%>

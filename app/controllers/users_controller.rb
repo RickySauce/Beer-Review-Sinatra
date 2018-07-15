@@ -53,16 +53,44 @@ class UsersController < ApplicationController
   end
 
   get '/logout' do
-    session.clear
-    redirect '/'
+    if logged_in?
+      session.clear
+      redirect '/'
+    else
+      redirect '/'
+    end
   end
 
   get '/add' do
-    erb :'/users/add'
+    if logged_in?
+      erb :'/beers/add'
+    else
+      redirect '/login'
+    end
+  end
+
+  post '/add' do
+    if params["name"].empty?
+      session[:message] = "Please enter a name"
+      redirect '/add'
+    else
+      @beer = Beer.find_by(name: params["name"])
+      if @beer
+        current_user.beers << @beer
+        current_user.save
+      else
+        session[:message] = "Sorry, that beer does not exist, please enter a new name"
+        redirect '/add'
+      end
+    end
   end
 
   get '/review' do
-
+    if logged_in?
+      erb :'/reviews/add'
+    else
+      redirect '/login'
+    end
   end
 
 end

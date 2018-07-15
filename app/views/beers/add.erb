@@ -1,0 +1,12 @@
+<h1>Add beer to your portfolio!</h1>
+
+<h3>Click on the beer list below:</h3>
+<a href="/beers">Beer List</a><br>
+
+<h3>Or search by name:</h3>
+<b><%=session[:message] if !session[:message].nil? && !session[:message].empty?%></b>
+<form action="/add" method="post">
+<input type="text" name="name">
+<input type="submit" value="Search">
+</form>
+<%session[:message].clear if !session[:message].nil? && !session[:message].empty?%>
