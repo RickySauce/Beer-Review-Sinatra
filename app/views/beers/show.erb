@@ -23,5 +23,7 @@
 <b>Total Reviews:</b> <%=@beer.reviews.count%><br>
 <h3><%=@beer.name%>'s Reviews:</h3>
 <%@beer.reviews.each_with_index do |review, index|%>
+<% if !review.content.empty? %>
 <li><a href="/reviews/<%=review.id%>">Review <%=index + 1%></a></li>
+<%end%>
 <%end%>

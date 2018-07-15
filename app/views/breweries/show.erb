@@ -12,5 +12,7 @@
 <h3><%=@brewery.name%>'s Reviews:</h3>
 <br><br>
 <%@brewery.reviews.each_with_index do |review, index|%>
+<%if !review.content.empty?%>
 <li><a href="/reviews/<%=review.id%>">Review <%=index + 1%> - <%=review.beer.name%></a></li>
+<%end%>
 <%end%>
