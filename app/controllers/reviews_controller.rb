@@ -1,5 +1,9 @@
 class ReviewsController < ApplicationController
 
+  get '/reviews' do
+    erb :'/reviews/reviews'
+  end
+
   get '/reviews/new' do
     if logged_in? && session[:beer].class == Beer
       if current_user.reviews.any? {|review| review.beer_id == session[:beer].id}
@@ -36,6 +40,11 @@ class ReviewsController < ApplicationController
       session[:beer] = ""
       redirect "/reviews/#{@review.id}"
     end
+  end
+
+  get '/reviews/:id' do
+    @review = Review.find(params["id"])
+    erb :'/reviews/show'
   end
 
 end

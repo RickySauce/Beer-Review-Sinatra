@@ -1,0 +1,14 @@
+<h1><%=@review.user.username%>'s Review for <%=@review.beer.name%></h1>
+<%if @review.user == current_user%>
+<form action="review/<%=@review.id%>/edit" method="get">
+  <input type="submit" value="edit"><br>
+</form>
+<%end%>
+</form>
+<b>Look:</b> <%=@review.look%>
+<b>Smell:</b> <%=@review.taste%>
+<b>Taste:</b> <%=@review.smell%>
+<b>Feel:</b> <%=@review.feel%>
+<b>Overall Rating:</b> <%=@review.rating%>
+
+<p><%=@review.content%></p>
