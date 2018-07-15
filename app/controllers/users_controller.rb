@@ -75,10 +75,16 @@ class UsersController < ApplicationController
       session[:message] = "Please enter a name"
       redirect '/add'
     else
-      @beer = Beer.find_by(name: params["name"])
+      @beer = Beer.all.find {|beer| beer.name.downcase == params["name"].downcase}
       if @beer
-        current_user.beers << @beer
-        current_user.save
+        if current_user.beers.any? {|beer| beer == @beer}
+          session[:message] = "Sorry, that beer is already in your portfolio"
+          redirect '/add'
+        else
+          current_user.beers << @beer
+          current_user.save
+          redirect "/users/#{current_user.id}"
+        end
       else
         session[:message] = "Sorry, that beer does not exist, please enter a new name"
         redirect '/add'
@@ -99,7 +105,7 @@ class UsersController < ApplicationController
       session[:message] = "Please enter a name"
       redirect '/add'
     else
-      @beer = Beer.find_by(name: params["name"])
+      @beer = Beer.all.find {|beer| beer.name.downcase == params["name"].downcase}
       if @beer
         if current_user.reviews.any? {|review| review.beer_id == @beer.id}
           session[:message] = "You have already reviewed this beer!"
