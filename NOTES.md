@@ -22,3 +22,11 @@ BEER REVIEW
     - list will contain an individual link to each user ('/users/:id')
   - user profile
 --------------------------------------------------------------------------
+
+contributors
+license
+install
+overall readme help
+
+sesssion[:message's]?
+refactor my code
