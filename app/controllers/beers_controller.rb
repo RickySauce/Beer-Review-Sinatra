@@ -13,12 +13,16 @@ class BeersController < ApplicationController
   end
 
   get '/beers/:id' do
-    @beer = Beer.find(params["id"])
-    erb :'/beers/show'
+    @beer = Beer.find_by_id(params["id"])
+    if @beer
+      erb :'/beers/show'
+    else
+      redirect '/beers'
+    end
   end
 
   post '/beers/:id/add' do
-    @beer = Beer.find(params["id"])
+    @beer = Beer.find_by_id(params["id"])
     if @beer
       if current_user.beers.any? {|beer| beer.id == @beer.id}
         redirect "/beers/#{@beer.id}"
@@ -33,7 +37,7 @@ class BeersController < ApplicationController
   end
 
   delete '/beers/:id/remove' do
-    @beer = Beer.find(params["id"])
+    @beer = Beer.find_by_id(params["id"])
     @review = current_user.reviews.find {|review| review.beer_id == @beer.id}
     current_user.beers.delete(@beer)
     current_user.reviews.delete(@review) if @review

@@ -5,7 +5,7 @@ class BreweriesController < ApplicationController
   end
 
   get '/breweries/:id' do
-    @brewery = Brewery.find(params["id"])
+    @brewery = Brewery.find_by_id(params["id"])
     if @brewery
       erb :'/breweries/show'
     else

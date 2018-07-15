@@ -49,8 +49,12 @@ class UsersController < ApplicationController
 
   get '/users/:id' do
     session[:message].clear
-    @user = User.find(params["id"])
-    erb :'/users/show'
+    @user = User.find_by_id(params["id"])
+    if @user
+      erb :'/users/show'
+    else
+      redirect '/users'
+    end
   end
 
   get '/logout' do

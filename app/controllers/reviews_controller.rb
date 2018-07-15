@@ -13,7 +13,7 @@ class ReviewsController < ApplicationController
   end
 
   get '/reviews/:beer_id/new' do
-    @beer = Beer.find(params["beer_id"])
+    @beer = Beer.find_by_id(params["beer_id"])
     if logged_in? && @beer
       if current_user.reviews.any? {|review| review.beer_id == @beer.id}
         session[:message] = "You have already reviewed this beer!"
@@ -46,13 +46,17 @@ class ReviewsController < ApplicationController
   end
 
   get '/reviews/:id' do
-    @review = Review.find(params["id"])
-    erb :'/reviews/show'
+    @review = Review.find_by_id(params["id"])
+    if @review
+      erb :'/reviews/show'
+    else
+      redirect '/reviews'
+    end
   end
 
   delete '/reviews/:id/delete'do
     if logged_in?
-      @review = Review.find(params["id"])
+      @review = Review.find_by_id(params["id"])
       if @review && @review.user == current_user
         @review.delete
         redirect "/users/#{current_user.id}"
@@ -63,7 +67,7 @@ class ReviewsController < ApplicationController
   end
 
   get '/reviews/:id/edit' do
-    @review = Review.find(params["id"])
+    @review = Review.find_by_id(params["id"])
     if logged_in?
       if @review && current_user.id == @review.user.id
         erb :'/reviews/edit'
@@ -76,7 +80,7 @@ class ReviewsController < ApplicationController
   end
 
   patch '/reviews/:id/edit' do
-    @review = Review.find(params["id"])
+    @review = Review.find_by_id(params["id"])
     if params["review"]["look"].empty? || params["review"]["smell"].empty? || params["review"]["taste"].empty? || params["review"]["feel"].empty?
       session[:message] = "Must enter a number for each of the first 4 fields!"
       redirect "/reviews/#{@review.id}/edit"
