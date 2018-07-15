@@ -1,0 +1,9 @@
+<h1><%=@beer.name%></h1>
+<b>ABV:</b><p><%=@beer.abv%>%</p>
+<b>Brewery:</b><p><%=@beer.brewery%></p>
+<b>Rating:</b><p><%=@beer.rating%></p>
+<b>Total Reviews:</b><p><%=@beer.reviews.count%></p>
+<h3><%=@beer.name%>'s Reviews:</h3>
+<%@beer.reviews.each_with_index do |review, index|%>
+<li><a href="/reviews/<%=review.id%>">Review <%=index%></a></li>
+<%end%>
