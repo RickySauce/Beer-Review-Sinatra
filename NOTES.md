@@ -23,10 +23,6 @@ BEER REVIEW
   - user profile
 --------------------------------------------------------------------------
 
-contributors
-license
-install
-overall readme help
 
 sesssion[:message's]?
 refactor my code

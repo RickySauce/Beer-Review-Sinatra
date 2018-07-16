@@ -22,6 +22,7 @@ class UsersController < ApplicationController
         redirect "/users/#{@user.id}"
       end
     end
+    # - merge redirect signups
   end
 
   get '/login' do
@@ -64,6 +65,7 @@ class UsersController < ApplicationController
     else
       redirect '/'
     end
+    # -merge redirect '/'
   end
 
   get '/add' do
@@ -94,6 +96,7 @@ class UsersController < ApplicationController
         redirect '/add'
       end
     end
+    # - merge redirect '/add'
   end
 
   get '/review' do
