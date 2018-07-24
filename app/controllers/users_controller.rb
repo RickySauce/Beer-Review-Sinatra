@@ -49,7 +49,7 @@ class UsersController < ApplicationController
   end
 
   get '/users/:id' do
-    session[:message].clear
+    session[:message].clear if !session[:message].blank?
     @user = User.find_by_id(params["id"])
     if @user
       erb :'/users/show'
